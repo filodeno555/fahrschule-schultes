@@ -9,6 +9,8 @@ index.html              the whole site — seven sections, anchor navigation
 assets/css/styles.css   Modernist tokens + component classes + the design's blocks
 assets/js/main.js       class filter, price calculator, FAQ, contact form, scroll spy
 assets/img/logo.png     the uploaded logo, background knocked out to transparency
+assets/img/hero-color.jpg  the hero photograph in colour (what the page uses)
+assets/img/hero.jpg     the same frame in black and white, kept as a fallback
 ```
 
 No build step and no dependencies — open `index.html` or serve the directory.
@@ -67,6 +69,15 @@ also appeared on the Infos page, and the benefits card grid described above.
 - **The logo replaces the text wordmark** in the brand bar. The upload sat on a flat
   grey ground, which would have shown as a box on `--color-bg`, so it was knocked
   out to transparency (`assets/img/logo.png`).
+- **The hero carries a full-bleed photograph, in colour.** This is the one place
+  the system's black-and-white rule for imagery is broken, at the client's request;
+  `hero.jpg` holds the same frame in black and white if it ever needs to fall back
+  in line. The photo sits *behind* the hero with the ground colour over it as a
+  scrim, so the ink type, the red accent and the 2px rules are unchanged. The band
+  ends at the `hr`: the stats row sits below it on plain ground, so no small type
+  ever lands on the photograph and the colour can run nearly undamped on the right.
+  Below 720px the type spans the full width, so the photo steps out into a
+  full-bleed band *above* the headline, where it is still the first thing on screen.
 - **`.grayscale` photo slots are kept as marked placeholders** — `[ Foto ]` and
   `[ Karte ]` — since no photography was supplied.
 
@@ -78,6 +89,9 @@ also appeared on the Infos page, and the benefits card grid described above.
 - **Placeholder content**: the weekly theory topics are examples (flagged as such in
   the chat) and need the real syllabus; the download cards, Impressum, Datenschutz,
   Haftungsausschluss and Job & Karriere links have no targets yet.
+- **Licence for the hero photograph.** It came in as a chat paste and looks like
+  stock photography. Whoever publishes the site needs the licence for it — in
+  Germany an unlicensed stock photo on a commercial site invites a cease-and-desist.
 - **Prices** are the 2026 figures from the prototype; the calculator's constants live
   in one `PRICE` object in `main.js` and must stay in step with the price list in
   `index.html`.
@@ -89,4 +103,11 @@ several settings, the filter across all five categories, the FAQ's single-open
 behaviour, the form's blocked and success paths, sticky-bar anchor offsets and the
 scroll spy, no horizontal overflow at 1440/1180/980/760/480/380px, 123 computed
 values against the values declared in the prototype, keyboard focus and labelling,
-and the full page with JavaScript disabled.
+and the full page with JavaScript disabled. The hero photograph was additionally
+checked for decoding, stacking behind the type, full-bleed width, and for coming
+before the headline on a 390px viewport, and the hero was reviewed by eye at 1440,
+1000 and 600px.
+
+The site is deployed at https://filodeno555.github.io/fahrschule-schultes/ via
+GitHub Pages, from a repository outside this session's GitHub access — pushes are
+done by hand, so the files here have to be uploaded after each change.

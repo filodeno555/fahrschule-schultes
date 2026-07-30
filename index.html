@@ -14,7 +14,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="preload" as="image" href="assets/img/hero-color.jpg" fetchpriority="high">
 <link rel="icon" href="assets/img/logo.png">
+<meta property="og:image" content="https://filodeno555.github.io/fahrschule-schultes/assets/img/hero-color.jpg">
+<meta property="og:url" content="https://filodeno555.github.io/fahrschule-schultes/">
 </head>
 <body>
 
@@ -48,14 +51,20 @@
 <main>
 
   <!-- ══════════════════ START ══════════════════ -->
-  <section class="section shell" id="start" aria-labelledby="start-title">
-    <p class="tag tag-outline" style="margin-bottom:var(--space-4)">Bonn · Beuel · Poppelsdorf · Sankt Augustin</p>
-    <h1 class="hero-title" id="start-title">Führerschein mit Plan. Ohne Druck.</h1>
-    <p class="hero-lead">Solide Ausbildung in allen Klassen, faire Preise und Fahrlehrer, die sich Zeit nehmen. Schauen Sie erst einen Unterricht an – anmelden können Sie sich danach.</p>
-    <div class="hero-actions">
-      <a href="#kontakt" class="btn btn-primary btn-lg">Kostenlos zum Probeunterricht</a>
-      <a href="#preise" class="btn btn-secondary btn-lg">Preise ansehen</a>
+  <section class="section hero" id="start" aria-labelledby="start-title">
+    <div class="hero-top">
+      <div class="hero-media" role="img" aria-label="Fahrschülerin am Steuer, Fahrlehrer auf dem Beifahrersitz während einer Übungsfahrt"></div>
+      <div class="shell hero-inner">
+        <p class="tag tag-outline" style="margin-bottom:var(--space-4)">Bonn · Beuel · Poppelsdorf · Sankt Augustin</p>
+        <h1 class="hero-title" id="start-title">Führerschein mit Plan. Ohne Druck.</h1>
+        <p class="hero-lead">Solide Ausbildung in allen Klassen, faire Preise und Fahrlehrer, die sich Zeit nehmen. Schauen Sie erst einen Unterricht an – anmelden können Sie sich danach.</p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary btn-lg">Kostenlos zum Probeunterricht</a>
+          <a href="#preise" class="btn btn-secondary btn-lg">Preise ansehen</a>
+        </div>
+      </div>
     </div>
+    <div class="shell">
     <hr class="hr">
     <div class="stats">
       <div>
@@ -74,6 +83,7 @@
         <div class="stats-value">0 €</div>
         <div class="stats-label">Probeunterricht</div>
       </div>
+    </div>
     </div>
   </section>
 
