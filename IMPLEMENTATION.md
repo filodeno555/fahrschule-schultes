@@ -127,16 +127,16 @@ also appeared on the Infos page, and the benefits card grid described above.
 - **Responsible party is now filled in** — Rolf Schultes, Hauptstraße 81, 53229 Bonn, from
   the privacy notice they supplied. That also closed four Impressum gaps: name, legal form
   (sole trader), the § 18 (2) MStV person, and the register entry, which does not apply.
-- **The legal pages have deliberate gaps**, marked with `.fill` spans that render as
-  loud "AUSFÜLLEN" boxes — company name and legal form, e-mail address, VAT number,
-  register entry, the supervising authority for the driving-school licence under
-  § 10 FahrlG, the person responsible under § 18 (2) MStV, and the choice on
-  consumer arbitration. None of this can be invented; it has to come from the
-  operator. Nine remain: e-mail address (twice), VAT number, the supervising authority
-  for the driving-school licence, the consumer-arbitration choice, the date of the notice,
-  and two on the career page. Both legal pages need a review before the site is advertised,
-  in particular the hosting section (GitHub Pages transfers data to the USA) and the
-  contact-form section, which currently and correctly states that nothing is sent.
+- **Impressum, Datenschutz and Haftungsausschluss are complete**, filled from the
+  operator's own pages. One gap remains, on the career page: the list of open positions.
+  Three citations were brought up to date rather than copied: § 5 TMG → § 5 DDG,
+  §§ 7–10 TMG → §§ 7–10 DDG (the TMG was replaced in May 2024) and § 55 (2) RStV →
+  § 18 (2) MStV (replaced in November 2020). The link to the EU ODR platform was
+  dropped — the platform shut down in 2025 and the link is dead. The VAT section was
+  removed: their Impressum publishes no VAT number, and it is only required if one exists.
+  Both legal pages still want a review before the site is advertised, in particular the
+  hosting section (GitHub Pages transfers data to the USA) and the contact-form section,
+  which currently and correctly states that nothing is sent.
 - **Licence for the hero photograph.** It came in as a chat paste and looks like
   stock photography. Whoever publishes the site needs the licence for it — in
   Germany an unlicensed stock photo on a commercial site invites a cease-and-desist.
