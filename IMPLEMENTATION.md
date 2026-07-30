@@ -115,13 +115,27 @@ also appeared on the Infos page, and the benefits card grid described above.
   browser's native validation applies.
 - **Placeholder content**: the weekly theory topics are examples (flagged as such in
   the chat) and need the real syllabus; the download cards have no targets yet.
+- **The privacy notice follows the operator's own text, with four sections corrected.**
+  Their existing notice describes the old site and claimed things that are untrue here:
+  that cookies are set, that surfing behaviour is analysed, that Google Maps is embedded,
+  and that there is no contact form. This site sets no cookies, runs no analytics, embeds
+  no third party at all, and does have a form. A notice asserting processing that does not
+  happen — and omitting one that does — is itself a breach, so those four sections were
+  rewritten to describe this site while keeping their structure, wording and mandatory
+  statements. Also corrected: their Server-Log section cites Art. 6 (1) f but describes
+  lit. b; the citation is kept and the description fixed.
+- **Responsible party is now filled in** — Rolf Schultes, Hauptstraße 81, 53229 Bonn, from
+  the privacy notice they supplied. That also closed four Impressum gaps: name, legal form
+  (sole trader), the § 18 (2) MStV person, and the register entry, which does not apply.
 - **The legal pages have deliberate gaps**, marked with `.fill` spans that render as
   loud "AUSFÜLLEN" boxes — company name and legal form, e-mail address, VAT number,
   register entry, the supervising authority for the driving-school licence under
   § 10 FahrlG, the person responsible under § 18 (2) MStV, and the choice on
   consumer arbitration. None of this can be invented; it has to come from the
-  operator. Both pages need a legal review before the site is advertised, in
-  particular the hosting section (GitHub Pages transfers data to the USA) and the
+  operator. Nine remain: e-mail address (twice), VAT number, the supervising authority
+  for the driving-school licence, the consumer-arbitration choice, the date of the notice,
+  and two on the career page. Both legal pages need a review before the site is advertised,
+  in particular the hosting section (GitHub Pages transfers data to the USA) and the
   contact-form section, which currently and correctly states that nothing is sent.
 - **Licence for the hero photograph.** It came in as a chat paste and looks like
   stock photography. Whoever publishes the site needs the licence for it — in
