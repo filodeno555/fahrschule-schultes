@@ -64,50 +64,99 @@
     });
   }
 
-  /* ── Preisrechner Klasse B ───────────────────────────────────────────────
-     Grundbetrag + n Übungsfahrten + 12 Pflicht-Sonderfahrten
-     + Prüfungsvorstellungen + optionales Lernsystem. */
+  /* ── Preisrechner ────────────────────────────────────────────────────────
+     Preise nach Angabe der Fahrschule. Die Zahl der Pflicht-Sonderfahrten ist
+     gesetzlich vorgegeben (FahrschAusbO): Klasse B und die Motorradklassen je
+     fünf Überland-, vier Autobahn- und drei Dämmerungsfahrten, BE drei plus eine
+     plus eine, AM keine. Wer die Preise ändert, ändert sie hier UND in den
+     Klassenkarten und der Preisliste in index.html. */
+  var CLASSES = {
+    'B':    { label: 'Klasse B / BF17 / Automatik', base: 300, lesson: 65, special: 65,
+              specialCount: 12, theory: 40, practical: 200, learn: 30 },
+    'B197': { label: 'Klasse B197', base: 300, lesson: 65, special: 65,
+              specialCount: 12, theory: 40, practical: 200, learn: 30, test: 25 },
+    'A':    { label: 'Motorrad A1 / A2 / A', base: 300, lesson: 73, special: 73,
+              specialCount: 12, theory: 40, practical: 220, learn: 30 },
+    'BE':   { label: 'Anhänger BE', base: 120, lesson: 69, special: 69,
+              specialCount: 5, theory: 0, practical: 210, learn: 0 },
+    'AM':   { label: 'Roller AM', base: 200, lesson: 68, special: 0,
+              specialCount: 0, theory: 40, practical: 210, learn: 30 },
+    'B196': { label: 'Motorrad B196', course: 850,
+              note: 'Aufbaukurs ohne Prüfung: 10 Praxisstunden und 4 × 90 Min. Theorie.' },
+    'B96':  { label: 'Anhänger B96', course: 320,
+              note: 'Schulung ohne Prüfung: 2,5 Std. Theorie, 3,5 Std. Umgang mit dem Anhänger, 1 Std. im Straßenverkehr.' },
+    'Mofa': { label: 'Mofa', course: 150,
+              note: 'Kompletter Kurs: 6 × 90 Min. Theorie und eine Doppelstunde Praxis.' }
+  };
+
   function initCalculator() {
     var root = document.querySelector('[data-calc]');
     if (!root) return;
 
+    var select = root.querySelector('[data-calc-class]');
     var range = root.querySelector('[data-calc-range]');
     var learn = root.querySelector('[data-calc-learn]');
     var count = root.querySelector('[data-calc-count]');
-    var lessonsLabel = root.querySelector('[data-calc-lessons-label]');
-    var lessonsValue = root.querySelector('[data-calc-lessons-value]');
-    var learnValue = root.querySelector('[data-calc-learn-value]');
+    var rowsBox = root.querySelector('[data-calc-rows]');
+    var lessonBlock = root.querySelector('[data-calc-lesson-block]');
+    var learnBlock = root.querySelector('[data-calc-learn-block]');
+    var noteBox = root.querySelector('[data-calc-note]');
     var totalOut = root.querySelector('[data-calc-total]');
-    if (!range) return;
+    if (!range || !rowsBox) return;
 
-    var PRICE = {
-      base: 300,          // Grundbetrag (Anmeldung)
-      lesson: 65,         // Übungsfahrt, 45 Min.
-      specialDrives: 12,  // gesetzlich vorgeschriebene Sonderfahrten
-      theoryExam: 40,     // Vorstellung Theorieprüfung
-      practicalExam: 200, // Vorstellung Praxisprüfung
-      learnSystem: 30     // Online-Lernsystem (optional)
-    };
+    function row(label, value) {
+      var el = document.createElement('div');
+      el.className = 'calc-row';
+      var a = document.createElement('span'); a.textContent = label;
+      var b = document.createElement('span'); b.textContent = value;
+      el.appendChild(a); el.appendChild(b);
+      return el;
+    }
 
     function render() {
-      var n = Number(range.value);
-      var ls = learn && learn.checked ? PRICE.learnSystem : 0;
-      var total = PRICE.base
-        + n * PRICE.lesson
-        + PRICE.specialDrives * PRICE.lesson
-        + PRICE.theoryExam
-        + PRICE.practicalExam
-        + ls;
+      var c = CLASSES[select ? select.value : 'B'] || CLASSES.B;
+      var rows = [];
+      var total;
 
-      if (count) count.textContent = String(n);
-      if (lessonsLabel) lessonsLabel.textContent = n + ' × Übungsfahrt';
-      if (lessonsValue) lessonsValue.textContent = euro(n * PRICE.lesson);
-      if (learnValue) learnValue.textContent = ls ? euro(ls) : '–';
+      if (c.course) {
+        // Festpreiskurs — die Zahl der Übungsfahrten spielt keine Rolle.
+        if (lessonBlock) lessonBlock.hidden = true;
+        if (learnBlock) learnBlock.hidden = true;
+        rows.push(['Kompletter Kurs', euro(c.course)]);
+        total = c.course;
+      } else {
+        if (lessonBlock) lessonBlock.hidden = false;
+        if (learnBlock) learnBlock.hidden = !c.learn;
+
+        var n = Number(range.value);
+        var ls = c.learn && learn && learn.checked ? c.learn : 0;
+        var specials = c.specialCount * c.special;
+
+        rows.push(['Grundbetrag (Anmeldung)', euro(c.base)]);
+        rows.push([n + ' × Übungsfahrt', euro(n * c.lesson)]);
+        if (c.specialCount) rows.push([c.specialCount + ' × Sonderfahrt (Pflicht)', euro(specials)]);
+        if (c.theory) rows.push(['Vorstellung Theorieprüfung', euro(c.theory)]);
+        rows.push(['Vorstellung Praxisprüfung', euro(c.practical)]);
+        if (c.test) rows.push(['Testfahrt', euro(c.test)]);
+        if (c.learn) rows.push(['Online-Lernsystem', ls ? euro(ls) : '–']);
+
+        total = c.base + n * c.lesson + specials + c.theory + c.practical + (c.test || 0) + ls;
+        if (count) count.textContent = String(n);
+      }
+
+      rowsBox.textContent = '';
+      rows.forEach(function (r) { rowsBox.appendChild(row(r[0], r[1])); });
+
+      if (noteBox) {
+        noteBox.textContent = c.note || '';
+        noteBox.hidden = !c.note;
+      }
       if (totalOut) totalOut.textContent = euro(total);
     }
 
     range.addEventListener('input', render);
     if (learn) learn.addEventListener('change', render);
+    if (select) select.addEventListener('change', render);
     render();
   }
 

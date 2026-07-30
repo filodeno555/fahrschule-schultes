@@ -573,30 +573,47 @@
 
       <!-- Price calculator — renders its default state without JavaScript. -->
       <div class="calc panel-dark" data-calc>
-        <h3>Preisrechner Klasse B</h3>
-        <p class="calc-intro">Wie viele Übungsfahrten Sie brauchen, ist individuell. Stellen Sie ein, mit wie vielen Sie rechnen – wir zeigen Ihnen die geschätzte Gesamtsumme.</p>
+        <h3>Preisrechner</h3>
+        <p class="calc-intro">Klasse wählen und einstellen, mit wie vielen Übungsfahrten Sie rechnen – wir zeigen Ihnen die geschätzte Gesamtsumme.</p>
 
-        <div class="calc-readout">
-          <label for="calc-lessons">Übungsfahrten (45 Min.)</label>
-          <div class="calc-count" data-calc-count>14</div>
+        <div class="field calc-field">
+          <label for="calc-class">Führerscheinklasse</label>
+          <select class="input" id="calc-class" data-calc-class>
+            <option value="B" selected>Klasse B / BF17 / Automatik</option>
+            <option value="B197">Klasse B197 (Automatik + Testfahrt)</option>
+            <option value="A">Motorrad A1 / A2 / A</option>
+            <option value="B196">Motorrad B196 (Aufbaukurs)</option>
+            <option value="BE">Anhänger BE</option>
+            <option value="B96">Anhänger B96 (Schulung)</option>
+            <option value="AM">Roller AM</option>
+            <option value="Mofa">Mofa</option>
+          </select>
         </div>
-        <input id="calc-lessons" type="range" min="5" max="45" step="1" value="14"
-               data-calc-range aria-describedby="calc-scale">
-        <div class="calc-scale" id="calc-scale"><span>5</span><span>45</span></div>
 
-        <label class="check">
+        <div data-calc-lesson-block>
+          <div class="calc-readout">
+            <label for="calc-lessons">Übungsfahrten (45 Min.)</label>
+            <div class="calc-count" data-calc-count>14</div>
+          </div>
+          <input id="calc-lessons" type="range" min="5" max="45" step="1" value="14"
+                 data-calc-range aria-describedby="calc-scale">
+          <div class="calc-scale" id="calc-scale"><span>5</span><span>45</span></div>
+        </div>
+
+        <label class="check" data-calc-learn-block>
           <input type="checkbox" checked data-calc-learn>
           Online-Lernsystem (30 €)
         </label>
 
-        <div class="calc-rows">
+        <div class="calc-rows" data-calc-rows>
           <div class="calc-row"><span>Grundbetrag (Anmeldung)</span><span>300 €</span></div>
-          <div class="calc-row"><span data-calc-lessons-label>14 × Übungsfahrt</span><span data-calc-lessons-value>910 €</span></div>
+          <div class="calc-row"><span>14 × Übungsfahrt</span><span>910 €</span></div>
           <div class="calc-row"><span>12 × Sonderfahrt (Pflicht)</span><span>780 €</span></div>
           <div class="calc-row"><span>Vorstellung Theorieprüfung</span><span>40 €</span></div>
           <div class="calc-row"><span>Vorstellung Praxisprüfung</span><span>200 €</span></div>
-          <div class="calc-row"><span>Online-Lernsystem</span><span data-calc-learn-value>30 €</span></div>
+          <div class="calc-row"><span>Online-Lernsystem</span><span>30 €</span></div>
         </div>
+        <p class="calc-course-note" data-calc-note hidden></p>
 
         <div class="calc-total">
           <span class="calc-total-label">Summe Fahrschule</span>

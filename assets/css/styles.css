@@ -568,6 +568,23 @@ input[type="range"] { accent-color: var(--color-accent); width: 100%; }
 }
 .calc-scale { display: flex; justify-content: space-between; font-size: 11px; opacity: 0.6; }
 .calc .check { margin: var(--space-3) 0 var(--space-4); }
+.calc-field { margin-bottom: var(--space-4); }
+.calc-field > label { color: color-mix(in srgb, var(--color-bg) 70%, transparent); }
+.calc-field .input {
+  /* background-color, nicht die Kurzschreibweise: sonst fallen Größe und Position
+     der Pfeilgrafik auf ihre Vorgabewerte zurück und füllen das ganze Feld. */
+  background-color: color-mix(in srgb, var(--color-bg) 12%, transparent);
+  border-color: color-mix(in srgb, var(--color-bg) 35%, transparent);
+  color: var(--color-bg);
+  background-image: linear-gradient(45deg, transparent 50%, var(--color-bg) 50%),
+                    linear-gradient(135deg, var(--color-bg) 50%, transparent 50%);
+  background-size: 5px 5px, 5px 5px;
+  background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%;
+  background-repeat: no-repeat;
+}
+.calc-field .input:hover { border-color: color-mix(in srgb, var(--color-bg) 60%, transparent); }
+.calc-field .input option { color: var(--color-text); background: var(--color-bg); }
+.calc-course-note { font-size: 13px; opacity: 0.7; margin: var(--space-3) 0 0; }
 .calc-rows { margin-top: var(--space-2); }
 .calc-row {
   display: flex; justify-content: space-between; gap: 16px;

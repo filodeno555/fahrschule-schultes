@@ -100,6 +100,13 @@ also appeared on the Infos page, and the benefits card grid described above.
   woff2 subsets (latin, latin-ext, 67 KB together) now ship with the site and the
   `<link>` to fonts.googleapis.com is gone. The page now makes no third-party
   requests at all.
+- **The price calculator covers every class.** A select drives it; the per-class
+  figures live in one `CLASSES` table in `main.js`. Fixed-price courses (B96, B196,
+  Mofa) hide the slider and the learning-system checkbox and show the course price
+  plus what it contains, rather than pretending a per-lesson calculation applies.
+  BE drops the theory-exam row and the learning system, AM drops the special drives —
+  each matching the operator's own price list. Without JavaScript the panel still
+  shows the Klasse B default.
 - **The class cards expand.** Each of the twelve is a native `<details>`: the card
   as drawn is the `<summary>`, the prices for that class sit in a panel below it.
   Native means it opens without JavaScript and is keyboard-operable without any
@@ -143,10 +150,13 @@ also appeared on the Infos page, and the benefits card grid described above.
 - **Prices** are the operator's own figures, supplied in chat and now carried in three
   places that must stay in step: the per-class detail panels in `index.html`, the
   Klasse B list and other-class summaries in the `#preise` section, and the `PRICE`
-  object in `main.js` that drives the calculator. Klasse B: 300 / 65 / 65 / 40 / 200,
+  `CLASSES` table in `main.js` that drives the calculator. Klasse B: 300 / 65 / 65 / 40 / 200,
   Testfahrt 25, Lernsystem 30. Motorrad: 300 / 73 / 73 / 40 / 220. BE: 120 / 69 / 69
   / 210, no theory exam. AM: 200 / 68 / 40 / 210. Fixed-price courses: B96 320 €,
   B196 850 €, Mofa 150 €.
+- **Mandatory special drives in the calculator** follow the FahrschAusbO: twelve for
+  Klasse B and the motorcycle classes (5 Überland, 4 Autobahn, 3 Dämmerung), five for
+  BE (3/1/1), none for AM. Worth confirming against how the school actually bills them.
 - **A2 power rating.** The operator's price page says "bis 37KW 48PS"; the legal limit
   for A2 is 35 kW (≈48 PS), which is what the card says. Worth confirming — it looks
   like a typo on their side, and the site should not repeat it.
