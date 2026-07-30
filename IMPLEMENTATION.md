@@ -100,6 +100,11 @@ also appeared on the Infos page, and the benefits card grid described above.
   woff2 subsets (latin, latin-ext, 67 KB together) now ship with the site and the
   `<link>` to fonts.googleapis.com is gone. The page now makes no third-party
   requests at all.
+- **The class cards expand.** Each of the twelve is a native `<details>`: the card
+  as drawn is the `<summary>`, the prices for that class sit in a panel below it.
+  Native means it opens without JavaScript and is keyboard-operable without any
+  ARIA. The 12px card padding moved to the summary so the detail panel carries its
+  own. Filtering closes any card it hides.
 - **`.grayscale` photo slots are kept as marked placeholders** — `[ Foto ]` and
   `[ Karte ]` — since no photography was supplied.
 
@@ -121,9 +126,16 @@ also appeared on the Infos page, and the benefits card grid described above.
 - **Licence for the hero photograph.** It came in as a chat paste and looks like
   stock photography. Whoever publishes the site needs the licence for it — in
   Germany an unlicensed stock photo on a commercial site invites a cease-and-desist.
-- **Prices** are the 2026 figures from the prototype; the calculator's constants live
-  in one `PRICE` object in `main.js` and must stay in step with the price list in
-  `index.html`.
+- **Prices** are the operator's own figures, supplied in chat and now carried in three
+  places that must stay in step: the per-class detail panels in `index.html`, the
+  Klasse B list and other-class summaries in the `#preise` section, and the `PRICE`
+  object in `main.js` that drives the calculator. Klasse B: 300 / 65 / 65 / 40 / 200,
+  Testfahrt 25, Lernsystem 30. Motorrad: 300 / 73 / 73 / 40 / 220. BE: 120 / 69 / 69
+  / 210, no theory exam. AM: 200 / 68 / 40 / 210. Fixed-price courses: B96 320 €,
+  B196 850 €, Mofa 150 €.
+- **A2 power rating.** The operator's price page says "bis 37KW 48PS"; the legal limit
+  for A2 is 35 kW (≈48 PS), which is what the card says. Worth confirming — it looks
+  like a typo on their side, and the site should not repeat it.
 
 ## Verification
 

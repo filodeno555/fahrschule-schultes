@@ -424,6 +424,55 @@ input[type="range"] { accent-color: var(--color-accent); width: 100%; }
 
 .filter-empty { padding: var(--space-6) var(--space-4); font-size: 14px; opacity: 0.7; }
 
+/* An expandable class card: the summary is the card as drawn, the detail panel
+   below it carries the prices. Native <details>, so it opens without JavaScript. */
+.class-card { padding: 0; }
+.class-summary {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); cursor: pointer; list-style: none;
+}
+.class-summary::-webkit-details-marker { display: none; }
+.class-summary:focus-visible { outline-offset: -2px; }
+.class-card:hover .class-more { color: var(--color-accent-600); }
+.cells > .class-card[open] { background: var(--color-neutral-100); }
+
+.class-more {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);
+  margin-top: auto; padding-top: var(--space-2);
+  border-top: 1px solid var(--color-divider);
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 12px; letter-spacing: 0.02em; color: var(--color-accent-700);
+}
+.class-more-icon {
+  font-size: 16px; line-height: 1; flex: none;
+  display: inline-block; transition: transform 120ms ease-out;
+}
+.class-card[open] .class-more-icon { transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) { .class-more-icon { transition: none; } }
+
+.class-detail { padding: 0 var(--space-3) var(--space-3); }
+.class-price-row,
+.class-price-lead {
+  display: flex; justify-content: space-between; gap: var(--space-3);
+  padding: 6px 0; font-size: 13px;
+}
+.class-price-row > span:last-child,
+.class-price-lead > span:last-child { white-space: nowrap; }
+.class-price-lead {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 16px; padding-bottom: var(--space-2);
+}
+.class-detail-label {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  margin: var(--space-2) 0 var(--space-1); opacity: 0.6;
+}
+.class-content { margin: 0 0 var(--space-2); padding-left: var(--space-4); font-size: 13px; }
+.class-content li { margin-bottom: 2px; }
+.class-note { font-size: 13px; opacity: 0.8; margin: var(--space-2) 0 0; }
+.class-fineprint { font-size: 11px; opacity: 0.55; margin: var(--space-2) 0 0; }
+.class-cta { margin-top: var(--space-2); font-size: 13px; padding-inline: 0; }
+
 /* ── Steps ────────────────────────────────────────────────────────────── */
 .step { padding: var(--space-6) var(--space-4); }
 .step-no {

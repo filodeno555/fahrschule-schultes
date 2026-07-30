@@ -49,6 +49,7 @@
       cards.forEach(function (card) {
         var match = cat === 'alle' || card.getAttribute('data-cat') === cat;
         card.hidden = !match;
+        if (!match) card.open = false;
         if (match) shown++;
       });
       empty.hidden = shown > 0;
