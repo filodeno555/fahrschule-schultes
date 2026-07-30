@@ -6,8 +6,13 @@ static site at the repo root. The prototype and its bundle (`project/`, `chats/`
 
 ```
 index.html              the whole site — seven sections, anchor navigation
+impressum.html          § 5 DDG provider identification — has gaps to fill
+datenschutz.html        GDPR privacy notice — has gaps to fill
+haftungsausschluss.html liability and copyright notice — complete
+karriere.html           jobs and career page — has gaps to fill
 assets/css/styles.css   Modernist tokens + component classes + the design's blocks
 assets/js/main.js       class filter, price calculator, FAQ, contact form, scroll spy
+assets/fonts/           Archivo, self-hosted (see below)
 assets/img/logo.png     the uploaded logo, background knocked out to transparency
 assets/img/hero-color.jpg  the hero photograph in colour (what the page uses)
 assets/img/hero.jpg     the same frame in black and white, kept as a fallback
@@ -63,6 +68,17 @@ also appeared on the Infos page, and the benefits card grid described above.
   hero), section titles as `h2` at the drawn 42px, cell titles as `h3` at 20px, and
   the small-caps eyebrows as `.eyebrow` paragraphs. Seven `h1`s and `h2`→`h6` jumps
   were correct across seven separate pages, not on one.
+- **The grid lines sit on the cells, not on the container.** The design draws the
+  modular grid as the container's divider-coloured background showing through 2px
+  gaps. That works only while every row is full: the class grid is `auto-fill`, and
+  any incomplete row (12 classes over 5 columns, or a filtered subset) left the
+  container colour showing as a grey block. Each cell now carries a 2px `outline`
+  instead, so a line exists only where a card does and an incomplete row simply
+  ends. Identical rendering when a grid is full.
+- **The phone number outranks the CTA on a phone.** In the sticky bar the spacing
+  tightens first and the "Probeunterricht" button drops below 360px — calling is
+  the most valuable action on a mobile visit, and the CTA is still in the nav row
+  and as the hero's primary button.
 - **Responsive breakpoints were added.** The prototype is drawn for the desktop grid
   only (fixed `repeat(4,1fr)` etc.). Above ~1080px the rendering is unchanged; below
   it, cells fold down in order and the 2px rules stay 2px.
@@ -78,6 +94,12 @@ also appeared on the Infos page, and the benefits card grid described above.
   ever lands on the photograph and the colour can run nearly undamped on the right.
   Below 720px the type spans the full width, so the photo steps out into a
   full-bleed band *above* the headline, where it is still the first thing on screen.
+- **The font is self-hosted.** The prototype pulls Archivo from Google's CDN, which
+  transmits every visitor's IP address to Google and therefore needs consent under
+  the GDPR — a well-known source of cease-and-desist letters in Germany. The two
+  woff2 subsets (latin, latin-ext, 67 KB together) now ship with the site and the
+  `<link>` to fonts.googleapis.com is gone. The page now makes no third-party
+  requests at all.
 - **`.grayscale` photo slots are kept as marked placeholders** — `[ Foto ]` and
   `[ Karte ]` — since no photography was supplied.
 
@@ -87,8 +109,15 @@ also appeared on the Infos page, and the benefits card grid described above.
   the spot: validation and the "Danke!" state work, nothing is sent. Without JS the
   browser's native validation applies.
 - **Placeholder content**: the weekly theory topics are examples (flagged as such in
-  the chat) and need the real syllabus; the download cards, Impressum, Datenschutz,
-  Haftungsausschluss and Job & Karriere links have no targets yet.
+  the chat) and need the real syllabus; the download cards have no targets yet.
+- **The legal pages have deliberate gaps**, marked with `.fill` spans that render as
+  loud "AUSFÜLLEN" boxes — company name and legal form, e-mail address, VAT number,
+  register entry, the supervising authority for the driving-school licence under
+  § 10 FahrlG, the person responsible under § 18 (2) MStV, and the choice on
+  consumer arbitration. None of this can be invented; it has to come from the
+  operator. Both pages need a legal review before the site is advertised, in
+  particular the hosting section (GitHub Pages transfers data to the USA) and the
+  contact-form section, which currently and correctly states that nothing is sent.
 - **Licence for the hero photograph.** It came in as a chat paste and looks like
   stock photography. Whoever publishes the site needs the licence for it — in
   Germany an unlicensed stock photo on a commercial site invites a cease-and-desist.
@@ -104,9 +133,11 @@ behaviour, the form's blocked and success paths, sticky-bar anchor offsets and t
 scroll spy, no horizontal overflow at 1440/1180/980/760/480/380px, 123 computed
 values against the values declared in the prototype, keyboard focus and labelling,
 and the full page with JavaScript disabled. The hero photograph was additionally
-checked for decoding, stacking behind the type, full-bleed width, and for coming
-before the headline on a 390px viewport, and the hero was reviewed by eye at 1440,
-1000 and 600px.
+checked for loading, stacking behind the type, full-bleed width, and for coming
+before the headline on a 390px viewport; the hero and the class grid were reviewed
+by eye at 1440, 1000, 600 and 390px; and horizontal overflow, the visibility of the
+phone number and of the photograph were checked at 1440/980/760/460/430/412/390/375/
+360/320px.
 
 The site is deployed at https://filodeno555.github.io/fahrschule-schultes/ via
 GitHub Pages, from a repository outside this session's GitHub access — pushes are

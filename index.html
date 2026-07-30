@@ -10,11 +10,8 @@
 <meta property="og:description" content="Solide Ausbildung in allen Klassen, faire Preise und Fahrlehrer, die sich Zeit nehmen. Vier Standorte in Bonn und Sankt Augustin.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-latin.woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/styles.css">
-<link rel="preload" as="image" href="assets/img/hero-color.jpg" fetchpriority="high">
 <link rel="icon" href="assets/img/logo.png">
 <meta property="og:image" content="https://filodeno555.github.io/fahrschule-schultes/assets/img/hero-color.jpg">
 <meta property="og:url" content="https://filodeno555.github.io/fahrschule-schultes/">
@@ -31,7 +28,7 @@
   <div class="masthead-spacer"></div>
   <div class="masthead-actions">
     <a href="tel:+4922824003854" class="btn btn-secondary btn-sm masthead-phone">0228 24003854</a>
-    <a href="#kontakt" class="btn btn-primary btn-sm">Probeunterricht</a>
+    <a href="#kontakt" class="btn btn-primary btn-sm masthead-cta">Probeunterricht</a>
   </div>
 </header>
 
@@ -53,7 +50,11 @@
   <!-- ══════════════════ START ══════════════════ -->
   <section class="section hero" id="start" aria-labelledby="start-title">
     <div class="hero-top">
-      <div class="hero-media" role="img" aria-label="Fahrschülerin am Steuer, Fahrlehrer auf dem Beifahrersitz während einer Übungsfahrt"></div>
+      <div class="hero-media">
+        <img class="hero-photo" src="assets/img/hero-color.jpg"
+             alt="Fahrschülerin am Steuer, Fahrlehrer auf dem Beifahrersitz während einer Übungsfahrt"
+             width="1600" height="900" fetchpriority="high" decoding="async">
+      </div>
       <div class="shell hero-inner">
         <p class="tag tag-outline" style="margin-bottom:var(--space-4)">Bonn · Beuel · Poppelsdorf · Sankt Augustin</p>
         <h1 class="hero-title" id="start-title">Führerschein mit Plan. Ohne Druck.</h1>
@@ -741,10 +742,10 @@
     <div class="footer-legal">
       <h2 class="eyebrow">Rechtliches</h2>
       <div class="footer-list">
-        <span>Impressum</span>
-        <span>Datenschutz</span>
-        <span>Haftungsausschluss</span>
-        <span>Job &amp; Karriere</span>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="haftungsausschluss.html">Haftungsausschluss</a>
+        <a href="karriere.html">Job &amp; Karriere</a>
       </div>
     </div>
   </div>
