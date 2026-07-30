@@ -1,0 +1,699 @@
+/* ============================================================================
+   Fahrschule Schultes — stylesheet
+   Built on the "Modernist" design system (see project/_ds/ in this repo):
+   flat, architectural, all Archivo, zero corner radius, strong 2px rules,
+   a single red accent, photography in pure black and white.
+
+   Tokens are copied verbatim from the design system. The font is pulled in
+   with a <link> in the document head rather than an @import, so nothing
+   blocks the stylesheet.
+   ========================================================================= */
+
+/* ── Tokens ───────────────────────────────────────────────────────────── */
+:root {
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201e1d;
+  --color-accent: #ec3013;
+  --color-accent-2: #e15b47;
+  --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
+
+  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+     same step of any role matches the others in visual value. */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  --color-accent-100: #fff2ef;
+  --color-accent-200: #ffe0d9;
+  --color-accent-300: #ffc4b8;
+  --color-accent-400: #ff9783;
+  --color-accent-500: #ff563c;
+  --color-accent-600: #dd2b0f;
+  --color-accent-700: #ae1800;
+  --color-accent-800: #7c1405;
+  --color-accent-900: #4d170e;
+
+  --font-heading: "Archivo", system-ui, sans-serif;
+  --font-heading-weight: 800;
+  --font-body: "Archivo", system-ui, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+
+  /* Site-level measures */
+  --shell: 1240px;          /* content column of every section          */
+  --cell-line: 2px;         /* the grid line that separates cells       */
+  --header-h: 56px;         /* fixed height of the sticky brand bar     */
+  --subnav-h: 38px;         /* measured at runtime by main.js           */
+  --stick: 94px;            /* header + subnav, for anchor scrolling    */
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* `hidden` has to win over the layout classes below — the class filter, the
+   form and its success state all toggle it. */
+[hidden] { display: none !important; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--space-2);
+}
+h1 { font-size: 42px; }
+h2 { font-size: 32px; }
+h3 { font-size: 25px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* Photographs print in pure black and white — never tinted. */
+.grayscale { filter: grayscale(1) contrast(1.08); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Jump link for keyboard users — parks above the sticky bars until focused. */
+.skip-link {
+  position: fixed; top: var(--space-2); left: var(--space-2); z-index: 100;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-accent); color: var(--color-bg);
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 13px; text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus-visible { transform: none; outline-offset: -4px; }
+
+/* ── Rules ────────────────────────────────────────────────────────────── */
+.hr { height: 2px; border: 0; margin: var(--space-4) 0; background: var(--color-divider); }
+
+/* The full-bleed 2px rule that separates major sections. */
+.rule {
+  height: 2px; border: 0; margin: var(--space-8) 0 0;
+  background: var(--color-divider);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text);
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md);
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--color-accent); color: var(--color-bg); }
+.btn-primary:hover { background: var(--color-accent-600); }
+.btn-primary:active { background: var(--color-accent-700); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+/* A button wider than its label starts the text at the left padding edge. */
+.btn-block { width: 100%; margin-top: var(--space-2); justify-content: flex-start; text-align: left; }
+.btn-lg { font-size: 16px; padding: var(--space-3) var(--space-6); }
+span.btn { cursor: default; }
+.btn-sm { font-size: 13px; padding: 6px 10px; white-space: nowrap; }
+
+/* Secondary button sitting on an ink-dark panel. */
+.on-dark .btn-secondary,
+.btn-secondary.on-dark {
+  border-color: color-mix(in srgb, var(--color-bg) 40%, transparent);
+  color: var(--color-bg);
+}
+.on-dark .btn-secondary:hover,
+.btn-secondary.on-dark:hover { background: color-mix(in srgb, var(--color-bg) 12%, transparent); }
+
+/* ── Tags ─────────────────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11px;
+  letter-spacing: 0.02em; padding: 3px 10px;
+  border-radius: calc(var(--radius-md) * 0.75);
+}
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+/* ── Form fields ──────────────────────────────────────────────────────── */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 5px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+textarea.input { min-height: 90px; resize: vertical; }
+select.input { appearance: none; padding-right: 28px; cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--color-text) 50%),
+                    linear-gradient(135deg, var(--color-text) 50%, transparent 50%);
+  background-size: 5px 5px, 5px 5px;
+  background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%;
+  background-repeat: no-repeat;
+}
+.check {
+  display: inline-flex; align-items: center; gap: 8px;
+  cursor: pointer; font-size: 14px;
+}
+.check input { accent-color: var(--color-accent); width: 15px; height: 15px; flex: none; }
+input[type="range"] { accent-color: var(--color-accent); width: 100%; }
+
+/* ── Cards ────────────────────────────────────────────────────────────── */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.card-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 17px; line-height: 1.2;
+}
+.card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+
+/* ── Layout ───────────────────────────────────────────────────────────── */
+.shell { max-width: var(--shell); margin: 0 auto; padding-inline: var(--space-4); }
+
+.section { padding-top: var(--space-8); }
+.section:last-of-type { padding-bottom: var(--space-8); }
+.section[id] { scroll-margin-top: var(--stick); }
+
+/* A section heading carries the h1 type size the design draws it at, while the
+   hero keeps the document's only h1. */
+.section-title { font-size: 42px; }
+
+/* The design's small-caps label. It carries h6 typography without claiming a
+   heading level — most of these sit above a heading rather than start a
+   section of their own. */
+.eyebrow {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 13px; line-height: 1.12; letter-spacing: 0.08em;
+  text-transform: uppercase; margin: 0 0 var(--space-2);
+}
+/* A cell heading, drawn at the h4 size the design uses. */
+.cell-title { font-size: 20px; }
+
+.section-lead {
+  font-size: 17px; opacity: 0.8; max-width: 620px; margin: 0 0 var(--space-8);
+}
+.kicker { color: var(--color-accent-700); }
+
+/* Section head: title block left, controls flush right, both baseline-aligned. */
+.section-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: var(--space-6); flex-wrap: wrap; margin-bottom: var(--space-6);
+}
+.section-head h2, .section-head h3 { margin: 0; }
+
+/* The modular grid: cells separated by a visible 2px line, framed by the same. */
+.cells {
+  display: grid;
+  gap: var(--cell-line);
+  background: var(--color-divider);
+  border: var(--cell-line) solid var(--color-divider);
+  grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr));
+}
+.cells > * { background: var(--color-bg); }
+.cells.auto { grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); }
+/* Cards keep the surface fill inside the grid; only the class cards sit on the
+   page ground, as drawn. */
+.cells > .card { border-radius: 0; background: var(--color-surface); }
+.cells > .card.class-card { background: var(--color-bg); }
+.cols-2 { --cols: 2; }
+.cols-3 { --cols: 3; }
+.cols-4 { --cols: 4; }
+.cols-5 { --cols: 5; }
+
+/* ── Sticky brand bar ─────────────────────────────────────────────────── */
+.masthead {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid var(--color-divider);
+  position: sticky; top: 0; z-index: 50;
+  background: var(--color-bg);
+  height: var(--header-h);
+  white-space: nowrap;
+}
+.masthead-brand { display: flex; align-items: center; flex: none; text-decoration: none; color: inherit; }
+.masthead-brand img { height: 30px; width: auto; }
+.masthead-spacer { flex: 1; }
+.masthead-actions { display: flex; align-items: center; gap: var(--space-2); flex: none; }
+
+/* ── Section nav ──────────────────────────────────────────────────────── */
+.subnav {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 2px solid var(--color-divider);
+  flex-wrap: wrap;
+  position: sticky; top: var(--header-h); z-index: 49;
+  background: var(--color-bg);
+}
+.subnav-links { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.subnav-links a {
+  color: inherit; text-decoration: none;
+  font-size: 13px; white-space: nowrap; font-weight: 400;
+}
+.subnav-links a:hover { color: var(--color-accent); }
+.subnav-links a[aria-current="true"] { color: var(--color-accent); font-weight: 600; }
+
+/* ── Hero ─────────────────────────────────────────────────────────────────
+   The photograph runs full-bleed behind the hero. The ground colour is laid
+   over it as a scrim so the ink type, the red accent and the 2px rules keep
+   working unchanged — the photo sits behind the design, it doesn't replace it.
+
+   The photograph runs in colour at the client's request — the one exception to
+   the system's black-and-white rule for imagery. hero.jpg holds the same frame
+   in black and white if it ever needs to fall back in line.
+   ────────────────────────────────────────────────────────────────────── */
+.hero { padding-top: 0; padding-bottom: var(--space-8); }
+/* The photograph's band. It reaches from under the nav to just below the
+   buttons — the `hr` and the stats row sit outside it on plain ground, so no
+   small type ever lands on the photo. */
+.hero-top {
+  position: relative; isolation: isolate;
+  padding-block: var(--space-8);
+}
+.hero-media {
+  position: absolute; inset: 0; z-index: -1;
+  background-image: url("../img/hero-color.jpg");
+  background-size: cover;
+  background-position: 72% 32%;
+  background-repeat: no-repeat;
+}
+/* The scrim: solid behind the type, then out of the way — the right third is
+   left almost untouched so the colour carries. */
+.hero-media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--color-bg) 96%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 93%, transparent) 44%,
+    color-mix(in srgb, var(--color-bg) 46%, transparent) 68%,
+    color-mix(in srgb, var(--color-bg) 6%, transparent) 100%
+  );
+}
+.hero-inner { position: relative; }
+
+.hero-title {
+  font-size: clamp(38px, 7.4vw, 68px);
+  max-width: 820px;
+  margin: 0 0 var(--space-4);
+}
+.hero-lead {
+  font-size: 19px; max-width: 560px; opacity: 0.85; margin: 0 0 var(--space-6);
+}
+.hero-actions {
+  display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-6);
+}
+
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stats > div {
+  padding: var(--space-4) var(--space-4) var(--space-6) 0;
+  border-right: 2px solid var(--color-divider);
+}
+.stats-value {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 30px;
+}
+.stats-label { font-size: 13px; opacity: 0.65; margin-top: 4px; }
+
+/* ── Segmented filter ─────────────────────────────────────────────────── */
+.seg {
+  display: inline-flex; overflow: hidden;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.seg button {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 9px; font: inherit; font-size: 11px; line-height: 1.55;
+  color: inherit; background: transparent; border: 0; cursor: pointer;
+}
+.seg button:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg button[aria-pressed="true"] { background: var(--color-accent); color: var(--color-bg); }
+.seg button:focus-visible { outline-offset: -2px; }
+
+/* ── Class cards ──────────────────────────────────────────────────────── */
+.class-card-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+}
+.class-code { font-size: 24px; }
+.class-title { font-weight: 600; font-size: 15px; }
+.class-card[hidden] { display: none; }
+
+.filter-empty { padding: var(--space-6) var(--space-4); font-size: 14px; opacity: 0.7; }
+
+/* ── Steps ────────────────────────────────────────────────────────────── */
+.step { padding: var(--space-6) var(--space-4); }
+.step-no {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; color: var(--color-accent-700); margin-bottom: var(--space-3);
+}
+.step .cell-title { margin-bottom: var(--space-2); }
+.step p { font-size: 15px; opacity: 0.8; margin: 0; }
+
+/* ── Photo slots (marked placeholders until real photography lands) ───── */
+.photo-slot {
+  background: var(--color-surface);
+  display: flex; align-items: flex-end;
+  padding: var(--space-3);
+}
+.photo-slot span { font-size: 11px; opacity: 0.55; font-family: var(--font-heading); }
+.photo-slot.h-180 { height: 180px; }
+.photo-slot.h-200 { height: 200px; }
+.photo-slot.portrait { aspect-ratio: 3 / 4; }
+
+/* ── Locations ────────────────────────────────────────────────────────── */
+.location-body { padding: var(--space-6); }
+.location-head {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin-bottom: var(--space-2);
+}
+.location-head h3 { margin: 0; }
+.location-address { font-size: 15px; opacity: 0.8; }
+.location-actions {
+  display: flex; gap: var(--space-2); margin-top: var(--space-4); flex-wrap: wrap;
+}
+.team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); }
+
+/* Compact location card — city, street, theory time, phone. */
+.location-mini .card-title { font-size: 16px; }
+.location-mini-street { font-size: 13px; opacity: 0.7; }
+.location-mini-foot {
+  display: flex; justify-content: space-between; gap: var(--space-2);
+  font-size: 13px; margin-top: auto;
+}
+.location-mini-phone { color: var(--color-accent-700); font-weight: 600; }
+
+/* ── Poster (the one place red runs as a field) ───────────────────────── */
+.poster {
+  margin-top: var(--space-8);
+  background: var(--color-accent); color: var(--color-bg);
+}
+.poster > .shell { padding-block: var(--space-8); }
+.poster h2 { margin: 0 0 var(--space-6); }
+.poster-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+.poster-item {
+  border-top: 2px solid color-mix(in srgb, var(--color-bg) 50%, transparent);
+  padding-top: var(--space-3);
+}
+.poster-item .cell-title { margin-bottom: 4px; }
+.poster-item p { font-size: 14px; opacity: 0.9; margin: 0; }
+
+/* ── Ink panels ───────────────────────────────────────────────────────── */
+.panel-dark { background: var(--color-text); color: var(--color-bg); }
+.callout {
+  margin-top: var(--space-8); padding: var(--space-8);
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8);
+  align-items: center;
+}
+.callout h2 { margin: 0 0 var(--space-3); }
+.callout p { font-size: 16px; opacity: 0.75; margin: 0; }
+.callout-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+/* ── Prices ───────────────────────────────────────────────────────────── */
+.price-grid { grid-template-columns: 1.1fr 0.9fr; }
+.price-panel { padding: var(--space-6); }
+.price-panel h3 { margin: 0 0 2px; }
+.price-note { font-size: 13px; opacity: 0.6; margin-bottom: var(--space-4); }
+.price-row {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 9px 0; font-size: 15px;
+}
+.price-row > span:last-child { white-space: nowrap; }
+.price-groups { margin-top: var(--space-4); }
+.price-group { padding: var(--space-3) var(--space-4); }
+.price-group-title { font-weight: 600; font-size: 15px; }
+.price-group-desc { font-size: 14px; opacity: 0.75; }
+
+/* ── Price calculator ─────────────────────────────────────────────────── */
+.calc { padding: var(--space-6); }
+.calc h3 { margin: 0 0 4px; }
+.calc-intro { font-size: 14px; opacity: 0.65; margin: 0 0 var(--space-4); }
+.calc-readout { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); }
+.calc-readout label { font-size: 14px; opacity: 0.8; }
+.calc-count {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 22px;
+}
+.calc-scale { display: flex; justify-content: space-between; font-size: 11px; opacity: 0.6; }
+.calc .check { margin: var(--space-3) 0 var(--space-4); }
+.calc-rows { margin-top: var(--space-2); }
+.calc-row {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 8px 0; font-size: 14px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-bg) 20%, transparent);
+}
+.calc-row > span:first-child { opacity: 0.8; }
+.calc-row > span:last-child { white-space: nowrap; }
+.calc-total {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding-top: var(--space-4);
+}
+.calc-total-label { font-size: 15px; opacity: 0.8; }
+.calc-total-value {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 32px; color: var(--color-accent-400);
+}
+.calc-fineprint { font-size: 12px; opacity: 0.55; margin: var(--space-3) 0 0; }
+
+/* ── Theory week ──────────────────────────────────────────────────────── */
+.week-day { padding: var(--space-4); min-height: 220px; }
+.week-day .eyebrow { color: var(--color-accent-700); margin-bottom: var(--space-3); }
+.week-day .cell-title { margin-bottom: var(--space-2); }
+.week-day p { font-size: 13px; opacity: 0.75; margin: 0 0 var(--space-4); }
+.week-time { font-size: 13px; font-weight: 600; }
+.week-place { font-size: 12px; opacity: 0.6; }
+
+.split { display: grid; gap: var(--space-8); }
+.split-9-11 { grid-template-columns: 0.9fr 1.1fr; }
+.split-even { grid-template-columns: 1fr 1fr; }
+.split-contact { grid-template-columns: 1.05fr 0.95fr; gap: var(--space-6); }
+
+.notice {
+  border-radius: 0; flex-direction: row; justify-content: space-between;
+  align-items: center; gap: var(--space-6); flex-wrap: wrap; padding: var(--space-6);
+}
+.notice h3 { margin-bottom: 4px; }
+.notice p { font-size: 15px; opacity: 0.8; margin: 0; }
+
+/* ── FAQ ──────────────────────────────────────────────────────────────── */
+.faq { max-width: 900px; }
+.faq-item { border-bottom: 2px solid var(--color-divider); }
+.faq-item > summary {
+  cursor: pointer; display: flex; justify-content: space-between; gap: 20px;
+  align-items: center; padding: var(--space-4) 0;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; list-style: none;
+}
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary:hover { color: var(--color-accent); }
+.faq-item > summary:focus-visible { outline-offset: -2px; }
+.faq-icon {
+  font-family: var(--font-heading); font-size: 20px; color: var(--color-accent-700);
+  display: inline-block; flex: none; transition: transform 120ms ease-out;
+}
+.faq-item[open] > summary > .faq-icon { transform: rotate(45deg); }
+.faq-answer {
+  font-size: 15px; opacity: 0.8;
+  padding: 0 40px var(--space-4) 0; max-width: 760px; margin: 0;
+}
+@media (prefers-reduced-motion: reduce) { .faq-icon { transition: none; } }
+
+/* ── Contact ──────────────────────────────────────────────────────────── */
+.contact-card { border-radius: 0; padding: var(--space-6); }
+.contact-form { display: grid; gap: var(--space-4); }
+.form-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.consent { align-items: flex-start; font-size: 13px; opacity: 0.8; }
+.consent input { margin-top: 2px; }
+.form-thanks { padding: var(--space-8) 0; }
+.form-thanks h2 { color: var(--color-accent-700); }
+.form-thanks p { font-size: 16px; opacity: 0.8; margin: 0; }
+.form-error { font-size: 13px; color: var(--color-accent-700); }
+
+.contact-aside { display: grid; gap: var(--space-3); align-content: start; }
+.contact-location {
+  border-radius: 0; flex-direction: row; justify-content: space-between;
+  align-items: center; gap: var(--space-3);
+}
+.contact-location .card-title { font-size: 16px; }
+.contact-location-address { font-size: 13px; opacity: 0.7; }
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+.footer {
+  background: var(--color-text); color: var(--color-bg);
+  border-top: 2px solid var(--color-divider);
+}
+.footer-grid {
+  padding-block: var(--space-8);
+  display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: var(--space-6);
+}
+.footer-brand {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; margin-bottom: var(--space-2);
+}
+.footer-about { font-size: 14px; opacity: 0.7; max-width: 280px; }
+.footer .eyebrow { opacity: 0.55; margin-bottom: var(--space-3); }
+.footer-list { display: grid; gap: var(--space-2); font-size: 14px; }
+.footer-list a, .footer-list span { color: var(--color-bg); opacity: 0.85; text-decoration: none; }
+.footer-list a:hover { opacity: 1; text-decoration: underline; }
+.footer-bar {
+  border-top: 1px solid color-mix(in srgb, var(--color-bg) 20%, transparent);
+  padding-top: var(--space-4); padding-bottom: var(--space-6);
+  display: flex; justify-content: space-between; gap: 20px;
+  font-size: 12px; flex-wrap: wrap; opacity: 0.7;
+}
+.footer :focus-visible { outline-color: var(--color-accent-400); }
+
+/* ── Narrower viewports ───────────────────────────────────────────────────
+   The design is drawn for the desktop grid; below it the cells fold down in
+   the same order and the rules stay 2px — never softened into hairlines.
+   ────────────────────────────────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; }
+  .footer-legal { grid-column: 2 / -1; }
+}
+
+@media (max-width: 980px) {
+  .cells.cols-5, .cells.cols-4, .cells.cols-3 { --cols: 2; }
+  .price-grid, .split-9-11, .split-even, .split-contact { grid-template-columns: 1fr; }
+  .poster-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .callout { grid-template-columns: 1fr; gap: var(--space-6); }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats > div:nth-child(2n) { border-right: 0; }
+  /* Type spans more of the width here, so the scrim closes up accordingly. */
+  .hero-media { background-position: 76% 30%; }
+  .hero-media::after {
+    background: linear-gradient(
+      100deg,
+      color-mix(in srgb, var(--color-bg) 96%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 94%, transparent) 56%,
+      color-mix(in srgb, var(--color-bg) 58%, transparent) 100%
+    );
+  }
+  .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split { gap: var(--space-6); }
+}
+
+@media (max-width: 720px) {
+  h1, .section-title { font-size: 34px; }
+  h2 { font-size: 27px; }
+  h3 { font-size: 22px; }
+  .hero-lead { font-size: 17px; }
+  /* A section heading carries the h1 type size the design draws it at, while the
+   hero keeps the document's only h1. */
+.section-title { font-size: 42px; }
+
+/* The design's small-caps label. It carries h6 typography without claiming a
+   heading level — most of these sit above a heading rather than start a
+   section of their own. */
+.eyebrow {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 13px; line-height: 1.12; letter-spacing: 0.08em;
+  text-transform: uppercase; margin: 0 0 var(--space-2);
+}
+/* A cell heading, drawn at the h4 size the design uses. */
+.cell-title { font-size: 20px; }
+
+.section-lead { font-size: 16px; }
+  .cells { --cols: 1; }
+  .cells.auto { grid-template-columns: minmax(0, 1fr); }
+  .poster-grid { grid-template-columns: minmax(0, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-legal { grid-column: auto; }
+  .form-pair { grid-template-columns: 1fr; }
+  .week-day { min-height: 0; }
+  /* Below this the type spans the full width, so the photograph steps out from
+     behind it into a full-bleed band of its own — placed first, so it is still
+     the first thing on screen. */
+  .hero { padding-bottom: 0; }
+  .hero-top {
+    display: flex; flex-direction: column;
+    padding-top: 0; padding-bottom: 0;
+  }
+  .hero-media {
+    position: relative; inset: auto; z-index: 0; order: 0;
+    height: 240px; margin-bottom: var(--space-6);
+    background-position: 68% 30%;
+  }
+  .hero-media::after { background: none; }
+  .hero-inner { order: 1; }
+  .callout, .poster > .shell { padding-inline: var(--space-4); }
+  .callout { padding: var(--space-6) var(--space-4); }
+  .contact-location { flex-direction: column; align-items: flex-start; }
+  .faq-item > summary { font-size: 16px; }
+  .faq-answer { padding-right: 0; }
+}
+
+@media (max-width: 560px) {
+  .masthead { gap: var(--space-2); }
+  .masthead-brand img { height: 24px; }
+  .stats { grid-template-columns: minmax(0, 1fr); }
+  .stats > div { border-right: 0; border-bottom: 2px solid var(--color-divider); padding-bottom: var(--space-4); }
+  .stats > div:last-child { border-bottom: 0; }
+  .team-grid { grid-template-columns: minmax(0, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; }
+  .notice { flex-direction: column; align-items: flex-start; }
+  .btn-lg { font-size: 15px; padding: var(--space-3) var(--space-4); }
+  .hero-actions .btn { flex: 1 1 auto; }
+}
+
+/* The phone number in the sticky bar is the one action that may never wrap;
+   below this the label collapses to the dial icon area only. */
+@media (max-width: 420px) {
+  .masthead-phone { display: none; }
+}
