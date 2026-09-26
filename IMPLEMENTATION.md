@@ -75,6 +75,15 @@ also appeared on the Infos page, and the benefits card grid described above.
   container colour showing as a grey block. Each cell now carries a 2px `outline`
   instead, so a line exists only where a card does and an incomplete row simply
   ends. Identical rendering when a grid is full.
+- **Rounded look instead of the ruled grid (client request, after launch).** The
+  system's hard edges were softened site-wide: every `.cells` grid renders as
+  free-standing white cards with 18px corners and a light shadow, buttons, tags
+  and the class filter are pills, inputs have rounded corners, the red poster and
+  the ink callout are rounded panels inside the column, FAQ items are cards, and
+  the 2px rules became 1px hairlines. The class cards set the pattern; everything
+  else lives in the "Rounded layer" block at the end of `styles.css`, so removing
+  that block (and resetting the `--radius-*` tokens to 0) brings the ruled design
+  back.
 - **The phone number outranks the CTA on a phone.** In the sticky bar the spacing
   tightens first and the "Probeunterricht" button drops below 360px — calling is
   the most valuable action on a mobile visit, and the CTA is still in the nav row
